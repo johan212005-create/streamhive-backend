@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: streamhive-lb
+spec:
+  # Tipo LoadBalancer para exponerlo a Internet (AWS ELB)
+  type: LoadBalancer
+  selector:
+    app: streamhive
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

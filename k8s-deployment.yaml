@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamhive-backend
+  labels:
+    app: streamhive
+    env: production
+spec:
+  # ESCALABILIDAD HORIZONTAL: 3 Replicas iniciales
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: streamhive
+  template:
+    metadata:
+      labels:
+        app: streamhive
+    spec:
+      containers:
+      - name: backend-api
+        image: johan/streamhive:latest # La imagen que creamos en Docker
+        ports:
+        - containerPort: 8080
+        resources:
+          # GESTIÓN DE RECURSOS (Evita que un pod tumbe el servidor)
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"

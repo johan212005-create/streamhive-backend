@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>StreamHive - Reproductor</title>
+    <style>
+        body { background-color: #141414; color: white; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+        .player-container { width: 800px; background: #000; border: 2px solid #333; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(100, 65, 165, 0.5); }
+        video { width: 100%; display: block; }
+        .controls { padding: 15px; background: #222; display: flex; justify-content: space-between; align-items: center; }
+        .btn { background: #6441A5; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .btn:hover { background: #7d5bbe; }
+        .status { margin-top: 20px; color: #00ff00; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>StreamHive <span style="font-size:0.5em; color:#aaa">Dev Build v1.0</span></h1>
+    
+    <div class="player-container">
+        <video id="videoPlayer" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+        </video>
+
+        <div class="controls">
+            <div>
+                <button class="btn" onclick="playVideo()">▶ Play</button>
+                <button class="btn" onclick="pauseVideo()">⏸ Pause</button>
+            </div>
+            <div id="qualityBadge" style="color: #aaa;">Calidad: 1080p (Auto)</div>
+        </div>
+    </div>
+
+    <div class="status" id="consoleLog">
+        > Conectando a API Gateway... OK<br>
+        > Validando Token JWT... OK (User: Student)<br>
+        > Stream buffer: Ready.
+    </div>
+
+    <script>
+        function playVideo() {
+            document.getElementById('videoPlayer').play();
+            addLog("Reproduciendo... (Evento enviado a Analytics)");
+        }
+        function pauseVideo() {
+            document.getElementById('videoPlayer').pause();
+            addLog("Pausado.");
+        }
+        function addLog(text) {
+            const consoleDiv = document.getElementById('consoleLog');
+            consoleDiv.innerHTML += "<br>> " + text;
+        }
+    </script>
+</body>
+</html>
